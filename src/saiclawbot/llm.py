@@ -10,11 +10,19 @@ from anthropic import AsyncAnthropic
 from .config import settings
 
 
+def _sdk_base_url(base_url: str | None) -> str | None:
+    """Anthropic SDK 自行附加 /v1/messages，兼容供应商文档中的 /v1 根地址。"""
+    if not base_url:
+        return None
+    normalized = base_url.rstrip("/")
+    return normalized.removesuffix("/v1")
+
+
 class LLM:
     def __init__(self) -> None:
         self.client = AsyncAnthropic(
             api_key=settings.anthropic_api_key,
-            base_url=settings.anthropic_base_url,
+            base_url=_sdk_base_url(settings.anthropic_base_url),
         )
         self.model = settings.model
 

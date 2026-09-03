@@ -22,8 +22,10 @@ def _id_set(name: str) -> set[str]:
 @dataclass(frozen=True)
 class Settings:
     anthropic_api_key: str = os.getenv("ANTHROPIC_API_KEY", "")
-    anthropic_base_url: str | None = os.getenv("ANTHROPIC_BASE_URL") or None
-    model: str = os.getenv("MODEL", "claude-sonnet-5")
+    anthropic_base_url: str | None = os.getenv(
+        "ANTHROPIC_BASE_URL", "https://opencode.ai/zen/go/v1"
+    ) or None
+    model: str = os.getenv("MODEL", "deepseek-v4-flash")
 
     max_steps: int = _int("MAX_STEPS", 12)
     # 超过预算就触发摘要压缩；粗略按 4 字符 ≈ 1 token 估算

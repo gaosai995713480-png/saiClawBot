@@ -27,6 +27,18 @@ copy .env.example .env      # 填 ANTHROPIC_API_KEY
 python -m saiclawbot cli
 ```
 
+### OpenCode Go
+
+项目通过 Anthropic Messages API 调用模型，OpenCode Go 可以直接配置，无需修改代码。将 `.env` 中的 LLM 部分改为：
+
+```dotenv
+ANTHROPIC_API_KEY=你的_OpenCode_Go_API_Key
+ANTHROPIC_BASE_URL=https://opencode.ai/zen/go/v1
+MODEL=deepseek-v4-flash
+```
+
+当前依赖的 Anthropic Python SDK 会自动请求 `/v1/messages`；项目会把带 `/v1` 的 API 根地址自动规范化，避免产生重复的 `/v1/v1/messages` 路径。模型可替换为 OpenCode Go 当前可用的其他裸模型 ID，例如 `qwen3.7-plus`。
+
 Telegram：`pip install -e .[telegram]`，在 `.env` 填 `TELEGRAM_BOT_TOKEN` 与 `ALLOWED_USER_IDS`，然后 `python -m saiclawbot telegram`。
 
 测试（不需要 API key）：`pytest`
