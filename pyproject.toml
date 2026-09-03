@@ -1,0 +1,29 @@
+[project]
+name = "saiclawbot"
+version = "0.1.0"
+description = "A hand-written personal AI agent: multi-channel gateway, ReAct loop, tools, memory."
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.40",
+    "pydantic>=2.6",
+    "aiosqlite>=0.20",
+    "python-dotenv>=1.0",
+    "structlog>=24.1",
+]
+
+[project.optional-dependencies]
+telegram = ["python-telegram-bot>=21.0"]
+web = ["fastapi>=0.110", "uvicorn>=0.29"]
+mcp = ["mcp>=1.0"]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
